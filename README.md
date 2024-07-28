@@ -1,72 +1,81 @@
 # Vue Movie App
 
-Este projeto é um aplicativo de filmes desenvolvido com Vue.js que permite aos usuários explorar e visualizar informações sobre filmes. Utiliza a API do The Movie Database (TMDb) para buscar e exibir dados de filmes.
+This project is a movie app developed with Vue.js that allows users to explore and view movie information. It uses The Movie Database (TMDb) API to fetch and display movie data.
 
-## Funcionalidades
+## Features
 
-- **Descubra Novos Filmes**: Navegue por filmes populares e mais bem avaliados.
-- **Busca de Filmes**: Pesquise filmes por título usando um campo de busca.
-- **Favoritos**: Adicione filmes aos favoritos e visualize-os em uma seção dedicada.
+- **Discover New Movies**: Browse popular and top-rated movies.
+- **Movie Search**: Search for movies by title using a search field.
+- **Favorites**: Add movies to favorites and view them in a dedicated section.
 
-## Tecnologias Utilizadas
+## Technologies Used
 
-- **Vue.js**: Framework JavaScript para a construção de interfaces de usuário.
-- **Vuex**: Gerenciamento de estado para a aplicação.
-- **Vuetify**: Framework de componentes de Material Design para Vue.js.
-- **Axios**: Biblioteca para realizar requisições HTTP.
-- **The Movie Database (TMDb) API**: API para obter informações sobre filmes.
+- **Vue.js**: JavaScript framework for building user interfaces.
+- **Vuex**: State management for the application.
+- **Vuetify**: Material Design component framework for Vue.js.
+- **Axios**: Library for making HTTP requests.
+- **The Movie Database (TMDb) API**: API for getting movie information.
 
-## Configuração do Projeto
+## Project Setup
 
-1. **Instalar Dependências**
+1. **Install Dependencies**
 
-   Primeiro, instale todas as dependências do projeto usando o Yarn:
+    First, install all project dependencies using Yarn:
 
-   ```bash
-   yarn install
-Compilar e Recarregar para Desenvolvimento
+    ```bash
+    yarn install
+    ```
 
-Para iniciar o servidor de desenvolvimento e visualizar o projeto localmente, execute:
+2. **Compile and Reload for Development**
 
-bash
-Copiar código
-yarn serve
-O aplicativo estará disponível em http://localhost:8080 por padrão.
+    To start the development server and view the project locally, run:
 
-Compilar e Minificar para Produção
+    ```bash
+    yarn serve
+    ```
 
-Para criar uma versão otimizada do projeto para produção, execute:
+    The application will be available at http://localhost:8080 by default.
 
-bash
-Copiar código
-yarn build
-Os arquivos de produção serão gerados na pasta dist.
+3. **Compile and Minify for Production**
 
-Linter e Correção de Arquivos
+    To create an optimized version of the project for production, run:
 
-Para verificar e corrigir problemas de linting no código, utilize:
+    ```bash
+    yarn build
+    ```
 
-bash
-Copiar código
-yarn lint
-Configuração da API
-Este projeto utiliza a API do The Movie Database (TMDb) para obter informações sobre filmes. Para utilizar a API, você precisa de uma chave de API. Crie uma conta no TMDb e obtenha sua chave de API.
+    The production files will be generated in the dist folder.
 
-Adicione sua chave de API
+4. **Linter and File Correction**
 
-Crie um arquivo .env na raiz do projeto.
+    To check and fix linting issues in the code, use:
 
-Adicione sua chave de API ao arquivo .env:
+    ```bash
+    yarn lint
+    ```
 
-env
-Copiar código
-VUE_APP_TMDB_API_KEY=your_api_key_here
-Certifique-se de reiniciar o servidor de desenvolvimento após adicionar a chave de API.
+## API Configuration
 
-Personalização e Configuração
-Para personalizar ou configurar o aplicativo, você pode editar os seguintes arquivos:
+This project uses The Movie Database (TMDb) API to get movie information. To use the API, you need an API key. Create an account on TMDb and get your API key.
 
-src/App.vue: O componente raiz do aplicativo.
-src/views/HomeView.vue: A visualização principal onde são exibidos os filmes.
-src/components/MovieCard.vue: Componente que exibe informações sobre um filme individual.
-Para mais informações sobre como personalizar a configuração do Vue CLI, consulte a Referência de Configuração.
+1. **Add Your API Key**
+
+    Create a .env file in the root of the project.
+
+    Add your API key to the .env file:
+
+    ```env
+    VUE_APP_TMDB_API_KEY=your_api_key_here
+    ```
+
+    Make sure to restart the development server after adding the API key.
+
+## Customization and Configuration
+
+To customize or configure the application, you can edit the following files:
+
+- src/App.vue: The root component of the application.
+- src/views/HomeView.vue: The main view where movies are displayed.
+- src/components/MovieCard.vue: Component that displays information about an individual movie.
+
+For more information on how to customize Vue CLI configuration, refer to the Configuration Reference.
