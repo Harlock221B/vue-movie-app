@@ -79,3 +79,4 @@ To customize or configure the application, you can edit the following files:
 - src/components/MovieCard.vue: Component that displays information about an individual movie.
 
 For more information on how to customize Vue CLI configuration, refer to the Configuration Reference.
+
