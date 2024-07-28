@@ -6,6 +6,7 @@ export interface Movie {
     genres: Array<{ id: number; name: string }>;
     release_date: string;
     revenue: number;
+    vote_average: number;
   }
   
   export interface RootState {
