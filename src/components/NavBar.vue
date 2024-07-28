@@ -21,13 +21,13 @@ export default defineComponent({
   font-family: 'Roboto', sans-serif;
   font-size: 24px;
   font-weight: bold;
-  color: #4caf50; /* Verde para o título */
+  color: #4caf50;
 }
 
 .app-title {
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: #4caf50; /* Verde para o título */
+  color: #4caf50;
 }
 
 .nav-btn {
@@ -35,13 +35,13 @@ export default defineComponent({
   font-size: 16px;
   margin-right: 15px;
   color: white;
-  background-color: #4caf50; /* Fundo verde para os botões */
+  background-color: #4caf50;
   text-transform: uppercase;
 }
 
 .v-app-bar {
-  background-color: #000000; /* Preto como cor principal */
-  border-bottom: 2px solid #4caf50; /* Borda inferior verde */
+  background-color: #000000;
+  border-bottom: 2px solid #4caf50;
 }
 
 .v-btn {

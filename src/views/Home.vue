@@ -1,57 +1,48 @@
 <template>
-  <div>
-    <v-app>
-      <v-container>
-        <v-row justify="center" class="my-5">
-          <v-col cols="12" sm="8" md="6" class="text-center">
-            <v-card elevation="2" class="title-card">
-              <v-card-title>
-                <v-icon large class="mr-2">mdi-movie</v-icon>
-                Top Rated Movies
-              </v-card-title>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col
-            v-for="movie in movies"
-            :key="movie.id"
-            cols="12"
-            sm="6"
-            md="4"
-            lg="3"
-            class="d-flex"
-          >
-            <MovieCard :movie="movie" v-if="!loading" />
-            <v-skeleton-loader
-              v-else
-              type="card"
-              width="100%"
-              class="movie-skeleton"
-            ></v-skeleton-loader>
-          </v-col>
-        </v-row>
-        <v-row justify="center" class="my-5">
-          <v-col cols="12" sm="8" md="6" class="text-center">
-            <v-pagination
-              v-model="page"
-              :length="totalPages"
-              total-visible="7"
-              @input="fetchMovies"
-              circle
-              class="pagination"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-app>
-  </div>
+  <v-container class="home-container">
+    <v-row class="header">
+      <v-col cols="12">
+        <h1 class="title">Discover New Movies</h1>
+      </v-col>
+    </v-row>
+    <v-row class="toolbar" align="center" justify="center">
+      <v-col cols="12" md="10" lg="8">
+        <v-text-field
+          v-model="search"
+          label="Search for movies..."
+          append-icon="mdi-magnify"
+          class="search-bar"
+          @input="onSearchInput"
+          outlined
+          dense
+          clearable
+          color="green"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <v-row class="movies-list" align="center" justify="center">
+      <v-col v-for="movie in movies" :key="movie.id" cols="12" sm="6" md="4" lg="3">
+        <MovieCard :movie="movie" />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12" class="text-center">
+        <v-pagination
+          v-model="page"
+          :length="totalPages"
+          @input="fetchMovies"
+          circle
+          color="green"
+        ></v-pagination>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, watch } from 'vue';
+import { defineComponent } from 'vue';
 import axios from 'axios';
-import MovieCard from '../components/MovieCard.vue';
+import MovieCard from '@/components/MovieCard.vue';
 
 export default defineComponent({
   name: 'HomeView',
@@ -60,78 +51,97 @@ export default defineComponent({
   },
   data() {
     return {
+      search: '',
       movies: [] as any[],
       page: 1,
       totalPages: 0,
-      loading: true,
     };
   },
   created() {
     this.fetchMovies();
   },
   watch: {
-    page(newPage) {
+    search() {
+      this.page = 1;
+      this.fetchMovies();
+    },
+    page() {
       this.fetchMovies();
     }
   },
   methods: {
+    onSearchInput() {
+      this.page = 1;
+      this.fetchMovies();
+    },
     fetchMovies() {
-      this.loading = true;
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/top_rated?api_key=2ce444e2f1d358a25becb7c52712b5c0&page=${this.page}`
-        )
+      const query = this.search ? `&query=${this.search}` : '';
+      const apiEndpoint = this.search
+        ? `https://api.themoviedb.org/3/search/movie?api_key=2ce444e2f1d358a25becb7c52712b5c0${query}&page=${this.page}`
+        : `https://api.themoviedb.org/3/movie/top_rated?api_key=2ce444e2f1d358a25becb7c52712b5c0&page=${this.page}`;
+      axios.get(apiEndpoint)
         .then((response) => {
           this.movies = response.data.results;
           this.totalPages = response.data.total_pages;
-          this.loading = false;
         });
-    },
-    goToMovie(id: number) {
-      this.$router.push({ name: 'MovieDetails', params: { id } });
     },
   },
 });
 </script>
 
 <style scoped>
-.title-card {
-  background-color: #ffeb3b;
-  color: #000;
+.home-container {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.header {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 2.5em;
   font-weight: bold;
-  font-size: 1.5em;
-  border-radius: 16px;
-  padding: 16px;
+  text-align: center;
+  color: #333;
 }
 
-.movie-skeleton {
-  height: 400px;
-  margin: 10px 0;
-  border-radius: 16px;
+.toolbar {
+  margin-bottom: 20px;
 }
 
-.pagination {
+.search-bar {
+  width: 100%;
+  max-width: 800px;
+}
+
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.v-pagination {
+  justify-content: center;
+  display: flex;
   margin-top: 20px;
 }
 
-.v-pagination__item--is-active {
-  background-color: #ffeb3b;
-  color: #000;
+.v-pagination .v-pagination__item--is-active {
+  background-color: #4caf50;
+  color: #fff;
 }
 
-@media (min-width: 960px) {
-  .title-card {
-    font-size: 2em;
-  }
-
-  .movie-skeleton {
-    height: 450px;
-  }
+.v-select, .v-text-field {
+  --v-theme-primary: #4caf50;
 }
 
-@media (min-width: 1280px) {
-  .movie-skeleton {
-    height: 500px;
+@media (max-width: 600px) {
+  .movie-card {
+    width: 100%;
+    height: auto;
   }
 }
 </style>

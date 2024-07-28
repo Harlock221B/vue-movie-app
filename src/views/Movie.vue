@@ -8,8 +8,8 @@
         <h1 class="movie-title">{{ movie.title }}</h1>
         <v-rating
           v-model="rating"
-          background-color="yellow darken-2"
-          color="yellow"
+          background-color="green darken-2"
+          color="green"
           small
           readonly
         ></v-rating>
@@ -20,7 +20,7 @@
         </p>
         <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
         <p><strong>Revenue:</strong> {{ formattedRevenue }}</p>
-        <v-btn color="blue" @click="toggleFavorite">
+        <v-btn class="favorite-btn" @click="toggleFavorite">
           <v-icon left>{{ isFavorite ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
           {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
         </v-btn>
@@ -84,10 +84,11 @@ export default defineComponent({
 
 <style scoped>
 .movie-container {
-  background-color: #f9f9f9; /* Light background color */
+  background-color: #fff;
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  color: #333;
 }
 
 .movie-poster {
@@ -99,28 +100,28 @@ export default defineComponent({
   font-size: 2.5em;
   font-weight: bold;
   margin-bottom: 0.5em;
-  color: #333; /* Dark text color */
+  color: #333;
 }
 
 .movie-overview {
   margin: 1em 0;
   line-height: 1.6;
-  color: #555; /* Medium text color */
+  color: #555;
 }
 
 .movie-genres {
   margin: 1em 0;
   font-style: italic;
-  color: #777; /* Light text color */
+  color: #777;
 }
 
-.v-btn {
+.favorite-btn {
   margin-top: 1em;
   color: white;
-  background-color: #007BFF; /* Blue button */
+  background-color: #4caf50;
 }
 
-.v-btn v-icon {
+.favorite-btn v-icon {
   margin-right: 8px;
 }
 
