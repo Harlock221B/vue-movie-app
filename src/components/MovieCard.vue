@@ -5,24 +5,25 @@
       class="movie-img"
       aspect-ratio="2"
     >
-      <div class="overlay">
-        <v-card-title class="movie-title">
-          {{ movie.title }}
-        </v-card-title>
-      </div>
+      <div class="overlay"></div>
     </v-img>
     <v-card-text class="movie-details">
       <v-row>
+        <v-col cols="12" class="movie-title">
+          <font-awesome-icon icon="film" class="mr-1" /> {{ movie.title }}
+        </v-col>
+      </v-row>
+      <v-row>
         <v-col cols="6" class="movie-votes">
-          <v-icon small class="mr-1">mdi-thumb-up</v-icon> {{ movie.vote_count }}
+          <font-awesome-icon icon="thumbs-up" class="mr-1" /> {{ movie.vote_count }}
         </v-col>
         <v-col cols="6" class="movie-rating text-right">
-          <v-icon small class="mr-1">mdi-star</v-icon> {{ movie.vote_average }}
+          <font-awesome-icon icon="star" class="mr-1" /> {{ movie.vote_average }}
         </v-col>
       </v-row>
       <v-row>
         <v-col cols="12" class="movie-popularity">
-          <v-icon small class="mr-1">mdi-chart-line</v-icon> Popularity: {{ movie.popularity }}
+          <font-awesome-icon icon="chart-line" class="mr-1" /> Popularity: {{ movie.popularity }}
         </v-col>
       </v-row>
     </v-card-text>
@@ -79,6 +80,7 @@ export default defineComponent({
   position: absolute;
   bottom: 0;
   width: 100%;
+  height: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
   color: white;
   padding: 15px;
@@ -88,25 +90,15 @@ export default defineComponent({
   border-radius: 0 0 16px 16px;
 }
 
-.movie-title {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin: 0;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  overflow: hidden; 
-  text-overflow: ellipsis; 
-  white-space: nowrap; 
-  max-width: calc(100% - 30px);
-}
-
 .movie-details {
   background: #f9f9f9;
   color: #333;
   padding: 16px;
   border-top: 1px solid #e0e0e0;
-  border-radius: 0 0 16px 16px;
+  border-radius: 0 0 1rem 1rem;
 }
 
+.movie-title,
 .movie-votes,
 .movie-rating,
 .movie-popularity {
@@ -117,5 +109,17 @@ export default defineComponent({
 .v-icon {
   vertical-align: middle;
   color: #ffca28;
+}
+
+/* Estilos responsivos */
+@media (max-width: 600px) {
+  .movie-card {
+    margin-bottom: 16px;
+  }
+
+  .movie-img {
+    width: 100%;
+    height: 35rem;
+  }
 }
 </style>

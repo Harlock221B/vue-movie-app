@@ -5,7 +5,10 @@
         <v-img :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`" class="movie-poster"></v-img>
       </v-col>
       <v-col cols="12" md="7" class="animate__animated animate__fadeInRight">
-        <h1 class="movie-title">{{ movie.title }}</h1>
+        <h1 class="movie-title">
+          <font-awesome-icon icon="film" class="mr-2" />
+          {{ movie.title }}
+        </h1>
         <v-rating
           v-model="rating"
           background-color="green darken-2"
@@ -15,13 +18,13 @@
         ></v-rating>
         <p class="movie-overview">{{ movie.overview }}</p>
         <p class="movie-genres">
-          <strong>Genres:</strong>
+          <strong><font-awesome-icon icon="tags" class="mr-1" />Genres:</strong>
           <span v-for="genre in movie.genres" :key="genre.id">{{ genre.name }}<span v-if="!isLastGenre(genre)">, </span></span>
         </p>
-        <p><strong>Release Date:</strong> {{ movie.release_date }}</p>
-        <p><strong>Revenue:</strong> {{ formattedRevenue }}</p>
+        <p><strong><font-awesome-icon icon="calendar-alt" class="mr-1" />Release Date:</strong> {{ movie.release_date }}</p>
+        <p><strong><font-awesome-icon icon="dollar-sign" class="mr-1" />Revenue:</strong> {{ formattedRevenue }}</p>
         <v-btn class="favorite-btn" @click="toggleFavorite">
-          <v-icon left>{{ isFavorite ? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+          <font-awesome-icon :icon="[isFavorite ? 'fas' : 'far', 'heart']" class="mr-1" />
           {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
         </v-btn>
       </v-col>
@@ -34,9 +37,13 @@ import { defineComponent } from 'vue';
 import axios from 'axios';
 import { mapState, mapActions } from 'vuex';
 import { RootState, Movie } from '../store/types';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 export default defineComponent({
   name: 'MovieDetails',
+  components: {
+    FontAwesomeIcon
+  },
   data() {
     return {
       movie: {} as Movie,
@@ -101,12 +108,20 @@ export default defineComponent({
   font-weight: bold;
   margin-bottom: 0.5em;
   color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.movie-title .mr-2 {
+  margin-right: 10px;
+  font-size: 0.8em;
 }
 
 .movie-overview {
   margin: 1em 0;
   line-height: 1.6;
   color: #555;
+  text-align: justify;
 }
 
 .movie-genres {
@@ -115,10 +130,19 @@ export default defineComponent({
   color: #777;
 }
 
+.movie-genres strong {
+  display: flex;
+  align-items: center;
+}
+
 .favorite-btn {
   margin-top: 1em;
   color: white;
   background-color: #4caf50;
+}
+
+.favorite-btn:hover {
+  background-color: #45a049;
 }
 
 .favorite-btn v-icon {
@@ -127,5 +151,17 @@ export default defineComponent({
 
 .animate__animated {
   animation-duration: 1s;
+}
+
+@media (max-width: 600px) {
+  .movie-title {
+    font-size: 2em;
+  }
+  .movie-overview {
+    font-size: 1em;
+  }
+  .movie-genres, .movie-genres strong, .favorite-btn {
+    font-size: 0.9em;
+  }
 }
 </style>
