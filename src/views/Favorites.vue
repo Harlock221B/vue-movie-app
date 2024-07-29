@@ -3,18 +3,18 @@
     <v-row>
       <v-col cols="12">
         <h1 class="favorites-title">My Favorite Movies</h1>
+        <v-btn @click="clearFavorites" color="error" class="mb-4">Clear All</v-btn>
       </v-col>
     </v-row>
     <v-row class="favorites-list">
-      <v-col
-        v-for="movie in favorites"
-        :key="movie.id"
-        cols="12"
-        sm="6"
-        md="4"
-        lg="3"
-        class="animate__animated animate__fadeInUp favorite-card"
-      >
+      <v-col v-if="favorites.length === 0" cols="12" class="empty-state">
+        <v-card>
+          <v-card-title>No Favorite Movies</v-card-title>
+          <v-card-text>It looks like you don't have any favorite movies yet.</v-card-text>
+        </v-card>
+      </v-col>
+      <v-col v-else v-for="movie in favorites" :key="movie.id" cols="12" sm="6" md="4" lg="3"
+        class="animate__animated animate__fadeInUp favorite-card">
         <MovieCard :movie="movie" @remove="removeFavorite(movie)" />
       </v-col>
     </v-row>
@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapState, mapActions } from 'vuex';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 import MovieCard from '@/components/MovieCard.vue';
 import { RootState, Movie } from '../store/types';
 
@@ -32,17 +32,23 @@ export default defineComponent({
   components: {
     MovieCard,
   },
-  computed: {
-    ...mapState<RootState>({
-      favorites: (state: RootState) => state.favorites,
-    }),
-  },
-  methods: {
-    ...mapActions(['removeFavorite']),
-  },
-  data() {
+  setup() {
+    const store = useStore<RootState>();
+
+    const favorites = computed(() => store.getters.favorites);
+
+    const removeFavorite = (movie: Movie) => {
+      store.dispatch('removeFavorite', movie);
+    };
+
+    const clearFavorites = () => {
+      store.dispatch('clearFavorites');
+    };
+
     return {
-      favorites: [] as Movie[],
+      favorites,
+      removeFavorite,
+      clearFavorites,
     };
   },
 });
@@ -75,6 +81,15 @@ export default defineComponent({
 .favorite-card {
   padding: 10px;
   box-sizing: border-box;
+}
+
+.empty-state {
+  text-align: center;
+}
+
+.empty-state .v-card {
+  padding: 20px;
+  background: #f9f9f9;
 }
 
 .animate__animated {

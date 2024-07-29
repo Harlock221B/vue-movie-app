@@ -12,6 +12,9 @@ const store = createStore<RootState>({
     REMOVE_FAVORITE(state, movie: Movie) {
       state.favorites = state.favorites.filter((f) => f.id !== movie.id);
     },
+    CLEAR_FAVORITES(state) {
+      state.favorites = [];
+    },
   },
   actions: {
     addFavorite({ commit }, movie: Movie) {
@@ -19,6 +22,9 @@ const store = createStore<RootState>({
     },
     removeFavorite({ commit }, movie: Movie) {
       commit('REMOVE_FAVORITE', movie);
+    },
+    clearFavorites({ commit }) {
+      commit('CLEAR_FAVORITES');
     },
   },
   getters: {
