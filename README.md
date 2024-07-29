@@ -13,6 +13,7 @@ Este projeto é um aplicativo de filmes desenvolvido com Vue.js que permite aos 
 - **Vue.js**: Framework JavaScript para construção de interfaces de usuário.
 - **Vuex**: Gerenciamento de estado para a aplicação.
 - **Vuetify**: Framework de componentes Material Design para Vue.js.
+- **Font Awesome**: Biblioteca de icones.
 - **Axios**: Biblioteca para fazer requisições HTTP.
 - **Jest**: Testes Unitarios.
 - **API do The Movie Database (TMDb)**: API para obter informações sobre filmes.
